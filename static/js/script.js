@@ -1,36 +1,73 @@
-var products = []
+(function () {
+
+        $(document).ready(function () {
+            var myProducts = new Products()
+            var myCart = new Cart()
+            myProducts.getProductList()
+            myCart.getCart()
+            $(window).on("dataChangedProducts", function () {
+                console.log(myProducts.list)
+                console.log(myProducts.url)
+            })
+            $(window).on("dataChangedCart", function () {
+                console.log(myCart.list)
+                console.log(myCart.url)
+            })
+        })
 
 
-$(document).ready(function(){
+        var dataChangedEventProducts = new Event('dataChangedProducts')
 
-   $('#message').html("This text has been inserted using jQuery from /static/js/script.js")
-   getProductList()
-   console.log(products)
+        function Products() {
+            this.url = '/products'
+            this.list = []
+        }
 
-})
+        Products.prototype.getProductList = function () {
+            var self = this
+            $.get({
+                url: self.url,
+                success: function (data) {
+                    self.list = data
+                    window.dispatchEvent(dataChangedEventProducts)
+                }
+            })
+        }
 
-function getProductList(){
-   const url = '/products'
-   $.get({
-      url: url,
-      success: function (data) {
-         products = data;
-      }
-   })
-}
+        Products.prototype.productInfo = function (id) {
+            //TODO
+        }
 
-function postCart(){
-   //TODO
-}
+        var dataChangedEventCart = new Event('dataChangedCart')
 
-function getCart(){
-   //TODO
-}
+        function Cart() {
+            this.url = '/cart'
+            this.list = []
+        }
 
-function displayCart(){
-   //TODO
-}
+        Cart.prototype.getCart = function () {
+            var self = this
+            $.get({
+                url: self.url,
+                success: function (data) {
+                    self.list = data
+                    window.dispatchEvent(dataChangedEventCart)
+                }
+            })
+        }
 
-function displayProductInfo(){
-   //TODO
-}
+        Cart.prototype.postCart = function (id, quantity, update) {
+            //TODO
+        }
+
+        Cart.prototype.displayCart = function () {
+            //TODO
+        }
+
+
+    }
+)()
+
+
+
+
