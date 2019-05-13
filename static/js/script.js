@@ -1,18 +1,28 @@
 (function () {
 
         $(document).ready(function () {
+            var templateText = $("#tableTemplate").html();
+            var tableTemplate = Handlebars.compile(templateText);
             var myProducts = new Products()
             var myCart = new Cart()
             myProducts.getProductList()
             myCart.getCart()
             $(window).on("dataChangedProducts", function () {
-                console.log(myProducts.list)
+                console.log(myProducts.list.products)
                 console.log(myProducts.url)
+                $("#products").html(tableTemplate({array: myProducts.list.products}));
+                $("#pro td").slice(0,60).click(function () {
+                    console.log($(this).parent().find('td:first').html());
+                    var index = $(this).parent().find('td:first').html()
+                    console.log(myProducts.list.products[index].name)
+                });
             })
             $(window).on("dataChangedCart", function () {
                 console.log(myCart.list)
                 console.log(myCart.url)
             })
+
+
         })
 
 
