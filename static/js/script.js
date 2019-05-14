@@ -1,21 +1,20 @@
 (function () {
-
+        const templateText = $("#tableTemplate").html();
+        const tableTemplate = Handlebars.compile(templateText);
+        var myProducts = new Products()
+        var myCart = new Cart()
         $(document).ready(function () {
-            var templateText = $("#tableTemplate").html();
-            var tableTemplate = Handlebars.compile(templateText);
-            var myProducts = new Products()
-            var myCart = new Cart()
             myProducts.getProductList()
             myCart.getCart()
             $(window).on("dataChangedProducts", function () {
                 console.log(myProducts.list.products)
                 console.log(myProducts.url)
-                $("#products").html(tableTemplate({array: myProducts.list.products}));
-                $("#pro td").slice(0,60).click(function () {
-                    console.log($(this).parent().find('td:first').html());
-                    var index = $(this).parent().find('td:first').html()
-                    console.log(myProducts.list.products[index].name)
-                });
+                myProducts.displayProductList()
+                var id = null;
+                $("#pro td").slice(0, 60).click(function () {
+                    console.log($(this).parent().find('td:first').html())
+                    id = $(this).parent().find('td:first').html()
+                })
             })
             $(window).on("dataChangedCart", function () {
                 console.log(myCart.list)
@@ -42,6 +41,10 @@
                     window.dispatchEvent(dataChangedEventProducts)
                 }
             })
+        }
+
+        Products.prototype.displayProductList = function () {
+            $("#products").html(tableTemplate({array: myProducts.list.products}));
         }
 
         Products.prototype.productInfo = function (id) {
