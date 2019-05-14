@@ -3,6 +3,7 @@
         const tableTemplate = Handlebars.compile(templateText);
         var myProducts = new Products()
         var myCart = new Cart()
+
         $(document).ready(function () {
             myProducts.getProductList()
             myCart.getCart()
@@ -12,8 +13,10 @@
                 myProducts.displayProductList()
                 var id = null;
                 $("#pro td").slice(0, 60).click(function () {
-                    console.log($(this).parent().find('td:first').html())
+                    //console.log($(this).parent().find('td:first').html())
                     id = $(this).parent().find('td:first').html()
+                    console.log(myProducts.list.products[id])
+                    $("#info").html(myProducts.list.products[id].name+' : $'+myProducts.list.products[id].unit_cost + myProducts.list.products[id].description)
                 })
             })
             $(window).on("dataChangedCart", function () {
