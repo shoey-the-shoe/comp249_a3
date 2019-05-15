@@ -24,15 +24,23 @@
                         ' <button id="addToCart"\n' +
                         '        type="button">\n' +
                         '    Add to cart\n' +
-                        '</button>'
+                        '</button><br>' +
+                        '  <input type="number" id="quantity">'
                     )
                     $("#addToCart").click(function () {
-                        myCart.postCart(product.id, 1, 1)
+                        var quantity = $('#quantity').val()
+                        myCart.postCart(product.id, quantity, -1)
+                        location.reload()
+
                     });
                     $("#remove").click(function () {
                         $("#info").empty()
                     });
                 })
+            })
+            $(window).on("dataChangedCart", function () {
+                myCart.displayCartPreview()
+
             })
         })
 
@@ -91,16 +99,21 @@
                     update: u,
                 },
                 success: function (response) {
-                    console.log(response)
+                    //console.log(response)
                 }
             })
         }
 
-        Cart.prototype.displayCart = function () {
-            //TODO
+        Cart.prototype.displayCartPreview = function () {
+            console.log(myCart.list.cart)
+            var costTotal = 0;
+            var quantTotal = 0;
+            for (var i = 0 ; i < myCart.list.cart.length ; i++){
+                costTotal += myCart.list.cart[i].cost
+                quantTotal += myCart.list.cart[i].quantity
+            }
+            console.log(costTotal + " : " + quantTotal)
         }
-
-
     }
 )()
 
