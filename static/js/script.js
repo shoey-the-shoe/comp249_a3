@@ -8,40 +8,32 @@
             myProducts.getProductList()
             myCart.getCart()
             $(window).on("dataChangedProducts", function () {
-                console.log(myProducts.list.products)
-                console.log(myProducts.url)
                 myProducts.displayProductList()
-                var id = null;
-                $("#pro td").slice(0, 60).click(function () {
-                    //console.log($(this).parent().find('td:first').html())
-                    id = $(this).parent().find('td:first').html()
-                    console.log(myProducts.list.products[id])
-                    $("#info").html(myProducts.list.products[id].name + ' : $' + myProducts.list.products[id].unit_cost + myProducts.list.products[id].description
-                        + "<img src=" + myProducts.list.products[id].image_url + ">" + "<br>" + "<button id=\"remove\"\n" +
+                $(".pro").click(function () {
+                    var id = $(this).children('td:first-child').html()
+                    var product = myProducts.list.products[id]
+                    $('#info').empty()
+                    $("#info").html(
+                  product.name + ' : $' + product.unit_cost + product.description
+                        + "<img src=" + product.image_url + ">" + "<br>" + "<button id=\"remove\"\n" +
                         "        type=\"button\">\n" +
                         "    Remove\n" +
                         "</button>")
+
                     $("#info").append(
                         ' <button id="addToCart"\n' +
                         '        type="button">\n' +
                         '    Add to cart\n' +
                         '</button>'
                     )
-
                     $("#addToCart").click(function () {
-                        myCart.postCart(myProducts.list.products[id].id, 1, 1)
+                        myCart.postCart(product.id, 1, 1)
                     });
                     $("#remove").click(function () {
                         $("#info").empty()
                     });
                 })
             })
-            $(window).on("dataChangedCart", function () {
-                console.log(myCart.list)
-                console.log(myCart.url)
-            })
-
-
         })
 
 
