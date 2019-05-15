@@ -1,6 +1,8 @@
 (function () {
         const templateText = $("#tableTemplate").html();
         const tableTemplate = Handlebars.compile(templateText);
+        const cartTemplateText = $("#cartTemplate").html()
+        const cartTemplate = Handlebars.compile(cartTemplateText)
         var myProducts = new Products()
         var myCart = new Cart()
 
@@ -14,7 +16,7 @@
                     var product = myProducts.list.products[id]
                     $('#info').empty()
                     $("#info").html(
-                  product.name + ' : $' + product.unit_cost + product.description
+                        product.name + ' : $' + product.unit_cost + product.description
                         + "<img src=" + product.image_url + ">" + "<br>" + "<button id=\"remove\"\n" +
                         "        type=\"button\">\n" +
                         "    Remove\n" +
@@ -108,10 +110,11 @@
             console.log(myCart.list.cart)
             var costTotal = 0;
             var quantTotal = 0;
-            for (var i = 0 ; i < myCart.list.cart.length ; i++){
+            for (var i = 0; i < myCart.list.cart.length; i++) {
                 costTotal += myCart.list.cart[i].cost
                 quantTotal += myCart.list.cart[i].quantity
             }
+            $("#cartDisplay").html(cartTemplate({totalCost: costTotal, noItems: quantTotal}))
             console.log(costTotal + " : " + quantTotal)
         }
     }

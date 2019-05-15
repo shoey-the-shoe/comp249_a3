@@ -44,8 +44,14 @@
             <input type="hidden" name="update" value="1">
         </fieldset>
     </form>
+    <script id="cartTemplate" type="text/x-handlebars-template">
+        <div><br>
+            <b>Total cost:</b> ${{totalCost}}<br>
+            <b>Items in cart:</b> {{noItems}}<br>
+        </div>
+    </script>
 
-    <div id="message"></div>
+    <div id="cartDisplay"></div>
 
     <br>
     <div id="products"></div>
@@ -88,18 +94,19 @@
 </html>
 
 <style>
-table {
-  width: 100%;
-}
+    table {
+        width: 100%;
+    }
 
-table, th, td {
-  border: 2px solid black;
-  border-collapse: collapse;
-}
+    table, th, td {
+        border: 2px solid black;
+        border-collapse: collapse;
+    }
 
-th, td {
-  padding: 2px 4px;
-}
-}</style>
+    th, td {
+        padding: 2px 4px;
+    }
+
+    }</style>
 
 
