@@ -42,6 +42,9 @@
             })
             $(window).on("dataChangedCart", function () {
                 myCart.displayCartPreview()
+                $("#cartDisplay").click(function () {
+                    console.log(myCart.list.cart)
+                })
 
             })
         })
@@ -107,7 +110,6 @@
         }
 
         Cart.prototype.displayCartPreview = function () {
-            console.log(myCart.list.cart)
             var costTotal = 0;
             var quantTotal = 0;
             for (var i = 0; i < myCart.list.cart.length; i++) {
@@ -115,7 +117,6 @@
                 quantTotal += myCart.list.cart[i].quantity
             }
             $("#cartDisplay").html(cartTemplate({totalCost: costTotal, noItems: quantTotal}))
-            console.log(costTotal + " : " + quantTotal)
         }
     }
 )()
