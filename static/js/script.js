@@ -27,7 +27,7 @@
                         '        type="button">\n' +
                         '    Add to cart\n' +
                         '</button><br>' +
-                        '  <input type="number" id="quantity">'
+                        '<br><b>Quantity: </b><input type="number" id="quantity" value="1">'
                     )
                     $("#addToCart").click(function () {
                         var quantity = $('#quantity').val()
