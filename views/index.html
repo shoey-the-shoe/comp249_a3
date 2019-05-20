@@ -13,37 +13,37 @@
 
 <div class="content">
 
-    <p>These URLs return JSON responses:</p>
-    <ul>
-        <li><a href="/products">List of Products</a></li>
-        <li><a href="/cart">Contents of Cart</a></li>
-    </ul>
+<!--    <p>These URLs return JSON responses:</p>-->
+<!--    <ul>-->
+<!--        <li><a href="/products">List of Products</a></li>-->
+<!--        <li><a href="/cart">Contents of Cart</a></li>-->
+<!--    </ul>-->
 
-    <p></p>
+<!--    <p></p>-->
 
-    <form action="/cart" method="post">
-        <fieldset>
-            <legend>This form will add to the cart with a given product id</legend>
-            <ul>
-                <li>Product: <input type="number" name="productid"></li>
-                <li>Quantity: <input type="number" name="quantity"></li>
-                <li><input type="submit"></li>
-            </ul>
-            <input type="hidden" name="update" value="0">
-        </fieldset>
-    </form>
+<!--    <form action="/cart" method="post">-->
+<!--        <fieldset>-->
+<!--            <legend>This form will add to the cart with a given product id</legend>-->
+<!--            <ul>-->
+<!--                <li>Product: <input type="number" name="productid"></li>-->
+<!--                <li>Quantity: <input type="number" name="quantity"></li>-->
+<!--                <li><input type="submit"></li>-->
+<!--            </ul>-->
+<!--            <input type="hidden" name="update" value="0">-->
+<!--        </fieldset>-->
+<!--    </form>-->
 
-    <form action="/cart" method="post">
-        <fieldset>
-            <legend>This form will update the cart with a given product id, or remove if quantity=0</legend>
-            <ul>
-                <li>Product: <input type="number" name="productid"></li>
-                <li>Quantity: <input type="number" name="quantity"></li>
-                <li><input type="submit"></li>
-            </ul>
-            <input type="hidden" name="update" value="1">
-        </fieldset>
-    </form>
+<!--    <form action="/cart" method="post">-->
+<!--        <fieldset>-->
+<!--            <legend>This form will update the cart with a given product id, or remove if quantity=0</legend>-->
+<!--            <ul>-->
+<!--                <li>Product: <input type="number" name="productid"></li>-->
+<!--                <li>Quantity: <input type="number" name="quantity"></li>-->
+<!--                <li><input type="submit"></li>-->
+<!--            </ul>-->
+<!--            <input type="hidden" name="update" value="1">-->
+<!--        </fieldset>-->
+<!--    </form>-->
     <script id="cartTemplate" type="text/x-handlebars-template">
         <div><br>
             <b>Total cost:</b> ${{totalCost}}<br>
@@ -60,7 +60,6 @@
         <table>
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Product</th>
                 <th>Price</th>
             </tr>
@@ -68,16 +67,41 @@
             <tbody>
             {{#each array}}
             <tr class="pro">
-                <td>{{id}}</td>
+                <td hidden>{{id}}</td>
                 <td>{{name}}</td>
-                <td>{{unit_cost}}</td>
+                <td>${{unit_cost}}</td>
             </tr>
             {{/each}}
             </tbody>
         </table>
     </script>
+
+    <script type="text/x-handlebars-template" id="fullCartTemplate">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+                <th>Total Cost ${{costTotal}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each array}}
+            <tr class="pro">
+                <td>{{name}}</td>
+                <td>{{quantity}}</td>
+                <td>${{cost}}</td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </script>
+
+
     <br>
     <div id="info"></div>
+    <div id="fullCart"></div>
 </div>
 
 
@@ -93,26 +117,6 @@
 </body>
 </html>
 
-<style>
-    table {
-        width: 100%;
-    }
 
-    table, th, td {
-        border: 2px solid black;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 2px 4px;
-    }
-
-    img {
-        border: 10px solid blue;
-        border-radius: 4px;
-        padding: 5px;
-        width: 500px;
-    }
-</style>
 
 

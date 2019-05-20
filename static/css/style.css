@@ -12,6 +12,7 @@ body {
     margin-bottom: 0;
     background-color: pink;
     padding: 20px;
+    overflow: auto;
 }
 
 #message {
@@ -32,4 +33,44 @@ body {
     padding: 10px;
     height: 80px;
 
+}
+
+table {
+    width: 40%;
+    margin: 20px;
+    padding: 20px;
+}
+
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 2px 4px;
+}
+
+img {
+    border: 10px solid blue;
+    border-radius: 4px;
+    padding: 5px;
+    width: 500px;
+}
+
+#info {
+    padding: 20px;
+    max-width: 40%;
+    min-width: 40%;
+    display: block;
+    position: relative;
+    margin-left: 1.4em;
+    float: right;
+}
+
+#fullCart table {
+    float: right;
+}
+
+#products table {
+    float: left;
 }

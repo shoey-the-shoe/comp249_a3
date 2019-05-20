@@ -3,6 +3,8 @@
         const tableTemplate = Handlebars.compile(templateText);
         const cartTemplateText = $("#cartTemplate").html()
         const cartTemplate = Handlebars.compile(cartTemplateText)
+        const fullCartTemplateText = $("#fullCartTemplate").html()
+        const fullCartTemplate = Handlebars.compile(fullCartTemplateText)
         var myProducts = new Products()
         var myCart = new Cart()
 
@@ -15,23 +17,26 @@
                     var id = $(this).children('td:first-child').html()
                     var product = myProducts.list.products[id]
                     $('#info').empty()
+                    $('#fullCart').empty()
                     $("#info").html(
                         product.name + ' : $' + product.unit_cost + product.description
                         + "<img src=" + product.image_url + ">" + "<br>" + "<button id=\"remove\"\n" +
                         "        type=\"button\">\n" +
                         "    Remove\n" +
-                        "</button>")
-
-                    $("#info").append(
-                        ' <button id="addToCart"\n' +
+                        "</button>" + ' <button id="addToCart"\n' +
                         '        type="button">\n' +
-                        '    Add to cart\n' +
+                        '    Add to / Modify cart\n' +
                         '</button><br>' +
-                        '<br><b>Quantity: </b><input type="number" id="quantity" value="1">'
-                    )
+                        '<br><b>Quantity: </b><input type="number" id="quantity" value="1"> <input type="checkbox" id="modifyCart"/> Modify Cart<br>')
+
                     $("#addToCart").click(function () {
                         var quantity = $('#quantity').val()
-                        myCart.postCart(product.id, quantity, -1)
+                        if ($("#modifyCart").is(':checked')) {
+                            myCart.postCart(product.id, quantity, 1)
+                        } else {
+                            myCart.postCart(product.id, quantity, -1)
+                        }
+
                         location.reload()
 
                     });
@@ -43,9 +48,19 @@
             $(window).on("dataChangedCart", function () {
                 myCart.displayCartPreview()
                 $("#cartDisplay").click(function () {
-                    console.log(myCart.list.cart)
-                })
+                    console.log(myCart.list.cart.length)
+                    var costTotal = 0
+                    for (var i = 0; i < myCart.list.cart.length; i++) {
+                        costTotal += myCart.list.cart[i].cost
+                    }
+                    $("#info").empty()
+                    if (myCart.list.cart.length == 0) {
+                        $('#fullCart').html("Your cart is empty.")
+                    } else {
+                        $('#fullCart').html(fullCartTemplate({array: myCart.list.cart, costTotal}))
+                    }
 
+                })
             })
         })
 
