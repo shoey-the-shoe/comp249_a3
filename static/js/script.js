@@ -37,7 +37,7 @@
                             myCart.postCart(product.id, quantity, -1)
                         }
 
-                        location.reload()
+                        //location.reload()
 
                     });
                     $("#remove").click(function () {
@@ -119,7 +119,7 @@
                     update: u,
                 },
                 success: function (response) {
-                    //console.log(response)
+                    console.log(response)
                 }
             })
         }
