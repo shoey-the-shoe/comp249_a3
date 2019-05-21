@@ -11,9 +11,9 @@
         $(document).ready(function () {
             myProducts.getProductList()
             myCart.getCart()
-            // if (myCart.list.length === 0) {
-            //     $("#cartDisplay").html(cartTemplate({totalCost: 0, noItems: 0}))
-            // }
+            if (myCart.list.length === 0) {
+                $("#cartDisplay").html(cartTemplate({totalCost: 0, noItems: 0}))
+            }
             $(window).on("dataChangedProducts", function () {
                 myProducts.displayProductList()
                 $(".pro").click(function () {
@@ -49,12 +49,14 @@
             })
             $(window).on("dataChangedCart", function () {
                 $("#cartDisplay").click(function () {
+                    console.log(myCart.list)
                     var costTotal = 0
-                    for (var i = 0; i < myCart.list.cart.length; i++) {
-                        costTotal += myCart.list.cart[i].cost
+                    for (var i = 0; i < myCart.list.length; i++) {
+                        costTotal += myCart.list[i].cost
                     }
                     $("#info").empty()
-                    if (myCart.list.cart.length == 0) {
+                    console.log(Object.keys(myCart.list).length)
+                    if (myCart.list.length == 0) {
                         $('#fullCart').html("Your cart is empty.")
                     } else {
                         $('#fullCart').html(fullCartTemplate({array: myCart.list.cart, costTotal}))
@@ -121,7 +123,7 @@
                 success: function (response) {
                     self.list = response
                     myCart.displayCartPreview()
-                    console.log(self.list)
+                    //console.log(self.list)
                 }
             })
         }
