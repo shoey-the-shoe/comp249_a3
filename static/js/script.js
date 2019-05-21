@@ -11,6 +11,9 @@
         $(document).ready(function () {
             myProducts.getProductList()
             myCart.getCart()
+            // if (myCart.list.length === 0) {
+            //     $("#cartDisplay").html(cartTemplate({totalCost: 0, noItems: 0}))
+            // }
             $(window).on("dataChangedProducts", function () {
                 myProducts.displayProductList()
                 $(".pro").click(function () {
@@ -31,14 +34,13 @@
 
                     $("#addToCart").click(function () {
                         var quantity = $('#quantity').val()
+
                         if ($("#modifyCart").is(':checked')) {
                             myCart.postCart(product.id, quantity, 1)
                         } else {
                             myCart.postCart(product.id, quantity, -1)
                         }
-
                         //location.reload()
-
                     });
                     $("#remove").click(function () {
                         $("#info").empty()
@@ -46,9 +48,7 @@
                 })
             })
             $(window).on("dataChangedCart", function () {
-                myCart.displayCartPreview()
                 $("#cartDisplay").click(function () {
-                    console.log(myCart.list.cart.length)
                     var costTotal = 0
                     for (var i = 0; i < myCart.list.cart.length; i++) {
                         costTotal += myCart.list.cart[i].cost
@@ -103,7 +103,7 @@
             $.get({
                 url: self.url,
                 success: function (data) {
-                    self.list = data
+                    //self.list = data
                     window.dispatchEvent(dataChangedEventCart)
                 }
             })
@@ -119,7 +119,9 @@
                     update: u,
                 },
                 success: function (response) {
-                    console.log(response)
+                    self.list = response
+                    myCart.displayCartPreview()
+                    console.log(self.list)
                 }
             })
         }
