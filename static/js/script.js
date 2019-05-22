@@ -23,8 +23,10 @@
                     var product = myProducts.list.products[id]
                     $('#productDisplay').empty()
                     $('#fullCart').empty()
-                    $('#productDisplay').html(productDisplayTemplate({productName: product.name, productCost: product.unit_cost,
-                        productDescription: product.description, imageUrl: product.image_url}))
+                    $('#productDisplay').html(productDisplayTemplate({
+                        productName: product.name, productCost: product.unit_cost,
+                        productDescription: product.description, imageUrl: product.image_url
+                    }))
                     $("#addToCart").click(function () {
                         var quantity = $('#quantity').val()
                         if ($("#modifyCart").is(':checked')) {

@@ -51,7 +51,7 @@ th, td {
 }
 
 td:hover {
-    text-decoration:underline
+    text-decoration:underline;
 }
 
 img {
