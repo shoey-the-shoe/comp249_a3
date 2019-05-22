@@ -5,6 +5,8 @@
         const cartTemplate = Handlebars.compile(cartTemplateText)
         const fullCartTemplateText = $("#fullCartTemplate").html()
         const fullCartTemplate = Handlebars.compile(fullCartTemplateText)
+        const productDisplayTemplateText = $("#productDisplayTemplate").html()
+        const productDisplayTemplate = Handlebars.compile(productDisplayTemplateText)
         var myProducts = new Products()
         var myCart = new Cart()
 
@@ -14,62 +16,45 @@
                 myCart.displayCartPreview()
             })
             myProducts.getProductList()
-
             $(window).on("dataChangedProducts", function () {
-
                 myProducts.displayProductList()
                 $(".pro").click(function () {
                     var id = $(this).children('td:first-child').html()
                     var product = myProducts.list.products[id]
-                    $('#info').empty()
+                    $('#productDisplay').empty()
                     $('#fullCart').empty()
-                    $("#info").html(
-                        product.name + ' : $' + product.unit_cost + product.description
-                        + "<img src=" + product.image_url + ">" + "<br>" + "<button id=\"remove\"\n" +
-                        "        type=\"button\">\n" +
-                        "    Remove\n" +
-                        "</button>" + ' <button id="addToCart"\n' +
-                        '        type="button">\n' +
-                        '    Add to / Modify cart\n' +
-                        '</button><br>' +
-                        '<br><b>Quantity: </b><input type="number" id="quantity" value="1"> <input type="checkbox" id="modifyCart"/> Modify Cart<br>')
-
+                    $('#productDisplay').html(productDisplayTemplate({productName: product.name, productCost: product.unit_cost,
+                        productDescription: product.description, imageUrl: product.image_url}))
                     $("#addToCart").click(function () {
                         var quantity = $('#quantity').val()
-
                         if ($("#modifyCart").is(':checked')) {
                             myCart.postCart(product.id, quantity, 1)
                         } else {
                             myCart.postCart(product.id, quantity, -1)
                         }
-
                         //location.reload()
                     });
                     $("#remove").click(function () {
-                        $("#info").empty()
+                        $("#productDisplay").empty()
                     });
                 })
             })
 
             $("#cartDisplay").click(function () {
-                console.log(myCart.list)
-
+                //console.log(myCart.list)
                 var costTotal = 0
                 for (var i = 0; i < myCart.list.length; i++) {
                     costTotal += myCart.list[i].cost
                 }
-                $("#info").empty()
-                console.log(Object.keys(myCart.list).length)
+                $("#productDisplay").empty()
+                //console.log(Object.keys(myCart.list).length)
                 if (myCart.list.length == 0) {
                     $('#fullCart').html("Your cart is empty.")
                 } else {
                     $('#fullCart').html(fullCartTemplate({array: myCart.list, costTotal}))
                 }
-
             })
-
         })
-
 
         var dataChangedEventProducts = new Event('dataChangedProducts')
 
@@ -91,10 +76,6 @@
 
         Products.prototype.displayProductList = function () {
             $("#products").html(tableTemplate({array: myProducts.list.products}));
-        }
-
-        Products.prototype.productInfo = function (id) {
-            //TODO
         }
 
         var dataChangedEventCart = new Event('dataChangedCart')

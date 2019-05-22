@@ -13,37 +13,37 @@
 
 <div class="content">
 
-<!--    <p>These URLs return JSON responses:</p>-->
-<!--    <ul>-->
-<!--        <li><a href="/products">List of Products</a></li>-->
-<!--        <li><a href="/cart">Contents of Cart</a></li>-->
-<!--    </ul>-->
+    <!--    <p>These URLs return JSON responses:</p>-->
+    <!--    <ul>-->
+    <!--        <li><a href="/products">List of Products</a></li>-->
+    <!--        <li><a href="/cart">Contents of Cart</a></li>-->
+    <!--    </ul>-->
 
-<!--    <p></p>-->
+    <!--    <p></p>-->
 
-<!--    <form action="/cart" method="post">-->
-<!--        <fieldset>-->
-<!--            <legend>This form will add to the cart with a given product id</legend>-->
-<!--            <ul>-->
-<!--                <li>Product: <input type="number" name="productid"></li>-->
-<!--                <li>Quantity: <input type="number" name="quantity"></li>-->
-<!--                <li><input type="submit"></li>-->
-<!--            </ul>-->
-<!--            <input type="hidden" name="update" value="0">-->
-<!--        </fieldset>-->
-<!--    </form>-->
+    <!--    <form action="/cart" method="post">-->
+    <!--        <fieldset>-->
+    <!--            <legend>This form will add to the cart with a given product id</legend>-->
+    <!--            <ul>-->
+    <!--                <li>Product: <input type="number" name="productid"></li>-->
+    <!--                <li>Quantity: <input type="number" name="quantity"></li>-->
+    <!--                <li><input type="submit"></li>-->
+    <!--            </ul>-->
+    <!--            <input type="hidden" name="update" value="0">-->
+    <!--        </fieldset>-->
+    <!--    </form>-->
 
-<!--    <form action="/cart" method="post">-->
-<!--        <fieldset>-->
-<!--            <legend>This form will update the cart with a given product id, or remove if quantity=0</legend>-->
-<!--            <ul>-->
-<!--                <li>Product: <input type="number" name="productid"></li>-->
-<!--                <li>Quantity: <input type="number" name="quantity"></li>-->
-<!--                <li><input type="submit"></li>-->
-<!--            </ul>-->
-<!--            <input type="hidden" name="update" value="1">-->
-<!--        </fieldset>-->
-<!--    </form>-->
+    <!--    <form action="/cart" method="post">-->
+    <!--        <fieldset>-->
+    <!--            <legend>This form will update the cart with a given product id, or remove if quantity=0</legend>-->
+    <!--            <ul>-->
+    <!--                <li>Product: <input type="number" name="productid"></li>-->
+    <!--                <li>Quantity: <input type="number" name="quantity"></li>-->
+    <!--                <li><input type="submit"></li>-->
+    <!--            </ul>-->
+    <!--            <input type="hidden" name="update" value="1">-->
+    <!--        </fieldset>-->
+    <!--    </form>-->
     <script id="cartTemplate" type="text/x-handlebars-template">
         <div><br>
             <b>Total cost:</b> ${{totalCost}}<br>
@@ -55,6 +55,7 @@
 
     <br>
     <div id="products"></div>
+
 
     <script type="text/x-handlebars-template" id="tableTemplate">
         <table>
@@ -75,6 +76,22 @@
             </tbody>
         </table>
     </script>
+
+
+    <script type="text/x-handlebars-template" id="productDisplayTemplate">
+        {{productName}} : ${{productCost}}
+        <br>
+        {{{productDescription}}}
+        <br>
+        <img src={{imageUrl}}>
+        <br>
+        <button id="remove">Remove</button>
+        <button id="addToCart">Add to / Modify Cart</button>
+        <br>
+        <br><b>Quantity: </b><input type="number" id="quantity" value="1"> <input type="checkbox"
+                                                                                  id="modifyCart"/> Modify Cart<br>
+    </script>
+
 
     <script type="text/x-handlebars-template" id="fullCartTemplate">
         <table>
@@ -100,7 +117,7 @@
 
 
     <br>
-    <div id="info"></div>
+    <div id="productDisplay"></div>
     <div id="fullCart"></div>
 </div>
 
