@@ -7,6 +7,8 @@
         const fullCartTemplate = Handlebars.compile(fullCartTemplateText)
         const productDisplayTemplateText = $("#productDisplayTemplate").html()
         const productDisplayTemplate = Handlebars.compile(productDisplayTemplateText)
+        const dataChangedEventProducts = new Event('dataChangedProducts')
+        const dataChangedEventCart = new Event('dataChangedCart')
         var myProducts = new Products()
         var myCart = new Cart()
 
@@ -34,7 +36,6 @@
                         } else {
                             myCart.postCart(product.id, quantity, -1)
                         }
-                        //location.reload()
                     });
                     $("#remove").click(function () {
                         $("#productDisplay").empty()
@@ -43,13 +44,12 @@
             })
 
             $("#cartDisplay").click(function () {
-                //console.log(myCart.list)
                 var costTotal = 0
                 for (var i = 0; i < myCart.list.length; i++) {
-                    costTotal += myCart.list[i].cost
+                    costTotal += myCart.list[i].cost;
                 }
+                costTotal = costTotal.toFixed(2)
                 $("#productDisplay").empty()
-                //console.log(Object.keys(myCart.list).length)
                 if (myCart.list.length == 0) {
                     $('#fullCart').html("Your cart is empty.")
                 } else {
@@ -57,8 +57,6 @@
                 }
             })
         })
-
-        var dataChangedEventProducts = new Event('dataChangedProducts')
 
         function Products() {
             this.url = '/products'
@@ -80,8 +78,6 @@
             $("#products").html(tableTemplate({array: myProducts.list.products}));
         }
 
-        var dataChangedEventCart = new Event('dataChangedCart')
-
         function Cart() {
             this.url = '/cart'
             this.list = []
@@ -98,7 +94,6 @@
             })
         }
 
-
         Cart.prototype.postCart = function (id, q, u) {
             var self = this
             $.post({
@@ -111,7 +106,6 @@
                 success: function (response) {
                     self.list = response.cart
                     myCart.displayCartPreview()
-                    console.log(self.list)
                 }
             })
         }
@@ -123,7 +117,7 @@
                 costTotal += myCart.list[i].cost
                 quantTotal += myCart.list[i].quantity
             }
-            $("#cartDisplay").html(cartTemplate({totalCost: costTotal, noItems: quantTotal}))
+            $("#cartDisplay").html(cartTemplate({totalCost: costTotal.toFixed(2), noItems: quantTotal}))
         }
     }
 )()

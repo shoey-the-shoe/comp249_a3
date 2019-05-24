@@ -18,19 +18,12 @@
             <b>Items in cart:</b> {{noItems}}<br>
         </div>
     </script>
-
-    <div id="cartDisplay"></div>
-
-    <br>
-    <div id="products"></div>
-
-
     <script type="text/x-handlebars-template" id="tableTemplate">
         <table>
             <thead>
             <tr>
-                <th>Product</th>
-                <th>Price</th>
+                <th id="productSort">Product</th>
+                <th id="priceSort">Price</th>
             </tr>
             </thead>
             <tbody>
@@ -44,8 +37,6 @@
             </tbody>
         </table>
     </script>
-
-
     <script type="text/x-handlebars-template" id="productDisplayTemplate">
         {{productName}} : ${{productCost}}
         <br>
@@ -59,8 +50,6 @@
         <br><b>Quantity: </b><input type="number" id="quantity" value="1"> <input type="checkbox"
                                                                                   id="modifyCart"/> Modify Cart<br>
     </script>
-
-
     <script type="text/x-handlebars-template" id="fullCartTemplate">
         <table>
             <thead>
@@ -82,16 +71,18 @@
             </tbody>
         </table>
     </script>
-
-
-    <br>
-    <div id="productDisplay"></div>
-    <div id="fullCart"></div>
+    <div class="nested1">
+        <div id="products"></div>
+        <div id="cartDisplay"></div>
+    </div>
+    <div class="nested2">
+        <div id="productDisplay"></div>
+        <div id="fullCart"></div>
+    </div>
 </div>
 
-
 <footer class="banner">
-    <p>Copyright &copy; 2019 COMP249 Web Technology</p>
+    <p>Copyright &copy; 2019 Alexander Visontay</p>
 </footer>
 
 <!-- load Javascript -->
