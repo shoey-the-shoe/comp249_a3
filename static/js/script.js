@@ -43,7 +43,8 @@
                             myCart.postCart(product.id, quantity, -1)
                         }
                     });
-                    $("#remove").click(function () {
+                    // hide product view
+                    $("#close").click(function () {
                         $("#productDisplay").empty()
                     });
                 })
