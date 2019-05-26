@@ -44,7 +44,7 @@
         <br>
         <img src={{imageUrl}}>
         <br>
-        <button id="remove">Remove</button>
+        <button id="remove">Close</button>
         <button id="addToCart">Add to / Modify Cart</button>
         <br>
         <br><b>Quantity: </b><input type="number" id="quantity" value="1"> <input type="checkbox"
@@ -52,12 +52,12 @@
     </script>
     <script type="text/x-handlebars-template" id="fullCartTemplate">
         <table>
+            <caption>Total Cost ${{costTotal}}</caption>
             <thead>
             <tr>
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Cost</th>
-                <th>Total Cost ${{costTotal}}</th>
             </tr>
             </thead>
             <tbody>

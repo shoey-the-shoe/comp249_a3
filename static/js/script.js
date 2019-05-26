@@ -45,9 +45,7 @@
 
             $("#cartDisplay").click(function () {
                 var costTotal = 0
-                for (var i = 0; i < myCart.list.length; i++) {
-                    costTotal += myCart.list[i].cost;
-                }
+                myCart.list.forEach(x => costTotal += x.cost);
                 costTotal = costTotal.toFixed(2)
                 $("#productDisplay").empty()
                 if (myCart.list.length == 0) {
@@ -113,10 +111,7 @@
         Cart.prototype.displayCartPreview = function () {
             var costTotal = 0;
             var quantTotal = 0;
-            for (var i = 0; i < myCart.list.length; i++) {
-                costTotal += myCart.list[i].cost
-                quantTotal += myCart.list[i].quantity
-            }
+            myCart.list.forEach((x) => {costTotal += x.cost; quantTotal += x.quantity;});
             $("#cartDisplay").html(cartTemplate({totalCost: costTotal.toFixed(2), noItems: quantTotal}))
         }
     }

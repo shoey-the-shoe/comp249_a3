@@ -8,7 +8,6 @@ body {
 
 
 .banner {
-    font-family: cursive, sans-serif;
     text-align: center;
     background-color: lightskyblue;
     margin: 0;
@@ -64,4 +63,8 @@ img {
 
 .nested2 {
     display: grid;
+}
+
+#cartDisplay:hover{
+    background: #CFEBFD;
 }
